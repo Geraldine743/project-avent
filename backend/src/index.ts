@@ -1,9 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import { AuthController } from './controllers/AuthController.js';
+import { connectMongoDB } from './mongodb.js';
 
 const app = express();
 app.use(express.json());
+connectMongoDB();
 app.use(cors()); 
 
 const PORT = 3000;
