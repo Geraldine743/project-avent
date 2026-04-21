@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS users (
+    id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    is_admin BOOLEAN DEFAULT FALSE,
+    is_blocked BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS calendars (
+    id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    user_id VARCHAR(36) NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+INSERT IGNORE INTO users (id, name, email, password, is_admin) 
+VALUES ('11111111-1111-1111-1111-111111111111', 'Michel Admin', 'michel@avent.fr', 'motdepassehashé', TRUE);
+
+INSERT IGNORE INTO calendars (id, user_id, title) 
+VALUES ('22222222-2222-2222-2222-222222222222', '11111111-1111-1111-1111-111111111111', 'Le Super Calendrier de Michel');
