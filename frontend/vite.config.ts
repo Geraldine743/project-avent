@@ -12,7 +12,10 @@ export default defineConfig({
   ],
   server: {
     host: true, // Autorise Docker à exposer le réseau
-    port: 5173
+    port: 5173,
+    watch: {
+      usePolling: true
+    }
   },
   resolve: {
     alias: {
