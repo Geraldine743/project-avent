@@ -1,0 +1,58 @@
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: avent_mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: avent_db
+      MYSQL_USER: michel_admin
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  mongo_db:
+    image: mongo:6
+    container_name: avent_mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: avent_api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_HOST=mysql_db
+      - DB_USER=michel_admin
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=avent_db
+      - MONGO_URI=mongodb://admin:${MONGO_PASSWORD}@mongo_db:27017
+    depends_on:
+      - mysql_db
+      - mongo_db
+
+  frontend:
+    build: ./frontend
+    container_name: avent_ui
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
+  mongo_data:
