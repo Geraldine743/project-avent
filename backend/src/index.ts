@@ -3,8 +3,6 @@ import cors from 'cors';
 import { AuthController } from './controllers/AuthController.js';
 import { connectMongoDB } from './mongodb.js';
 import { seedSurprises } from './seed.js';
-import { SurpriseModel } from './models/SurpriseModel.js';
-import { authMiddleware } from './middlewares/authMiddleware.js';
 
 const app = express();
 connectMongoDB().then(() => {
