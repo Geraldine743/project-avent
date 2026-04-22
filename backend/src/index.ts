@@ -3,6 +3,8 @@ import cors from 'cors';
 import { AuthController } from './controllers/AuthController.js';
 import { connectMongoDB } from './mongodb.js';
 import { seedSurprises } from './seed.js';
+import { authMiddleware } from './middlewares/authMiddleware.js';
+import { SurpriseController } from './controllers/SurpriseController.js';
 
 const app = express();
 connectMongoDB().then(() => {
@@ -16,6 +18,8 @@ const PORT = 3000;
 
 app.post('/api/auth/register', AuthController.register);
 app.post('/api/auth/login', AuthController.login);
+
+app.get('/api/surprises/:day', authMiddleware, SurpriseController.getSurpriseByDay);
 
 app.get('/', (req, res) => {
     res.send("L'API du calendrier de Michel est en ligne !");
