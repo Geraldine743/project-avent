@@ -31,3 +31,42 @@ const handleLogin = async () => {
     }
 };
 </script>
+
+<template>
+    <main class="login-container">
+        <div class="login-card">
+            <h1>Connexion</h1>
+            <p class="subtitle">Entrez vos accès pour ouvrir vos cadeaux</p>
+
+            <form @submit.prevent="handleLogin" class="login-form">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input 
+                        v-model="email" 
+                        type="email" 
+                        id="email" 
+                        placeholder="michel@noel.com" 
+                        required 
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Mot de passe</label>
+                    <input 
+                        v-model="password" 
+                        type="password" 
+                        id="password" 
+                        placeholder="••••••••" 
+                        required 
+                    />
+                </div>
+
+                <p v-if="errorMessage" class="error-msg">{{ errorMessage }}</p>
+
+                <button type="submit" class="btn-submit">Se connecter</button>
+            </form>
+
+            <router-link to="/" class="back-link">← Retour à l'accueil</router-link>
+        </div>
+    </main>
+</template>
