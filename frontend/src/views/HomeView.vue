@@ -46,7 +46,6 @@ const router = useRouter();
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* On s'assure que le dégradé couvre tout */
   background: linear-gradient(135deg, #0a2e1a 0%, #165b33 100%);
   background-attachment: fixed; 
 }
