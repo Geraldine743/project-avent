@@ -12,7 +12,7 @@ export class SurpriseController {
 
             if (isFutureDay) {
                 return res.status(403).json({ 
-                    message: `Patience Michel ! Nous sommes le ${today}, tu ne peux pas encore ouvrir la case ${day}.` 
+                    message: `Patience! Nous sommes le ${today}, tu ne peux pas encore ouvrir la case ${day}.` 
                 });
             }
 
@@ -21,8 +21,6 @@ export class SurpriseController {
             if (!surprise) {
                 return res.status(404).json({ message: "Case vide..." });
             }
-
-            console.log("✅ Accès autorisé");
             return res.json(surprise);
 
         } catch (error) {

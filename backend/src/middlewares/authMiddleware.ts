@@ -10,7 +10,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
     }
 
     try {
-        const secret = process.env.JWT_SECRET || 'mon_secret_ultra_sur';
+        const secret = process.env.JWT_SECRET || 'ma_clé_secrète_par_défaut';
         const decoded = jwt.verify(token, secret);
         (req as any).user = decoded;
         next();
